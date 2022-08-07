@@ -134,6 +134,34 @@ router.post("/login", async (req, res) => {
 });
   
 
+// @route   GET /api/auth/current
+// @desc    Return the currently authed user
+// @access  Private
+router.get("/current", requiresAuth, (req, res) => {
+  if (!req.user) {
+    return res.status(401).send("Unauthorized");
+  }
+
+  return res.json(req.user);
+});
+// @route   PUT /api/auth/logout
+// @desc    Logout user a clear the cookie
+// @access  Private
+
+router.put("/logout", requiresAuth, async (req, res) => {
+  try {
+    res.clearCookie("access-token");
+
+    return res.json({ success: true });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send(err.message);
+  }
+});
+
+
+
+
 module.exports = router;
 
 
