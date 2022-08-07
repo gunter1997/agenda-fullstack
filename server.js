@@ -6,8 +6,12 @@ const { default: mongoose} = require('mongoose');
 const cookieParser =require('cookie-parser');
 
 
+
+
 // importation de route
 const authroute= require('./route/auth');
+const Agendasroute= require('./route/agendas');
+
 
 
   const app = express();
@@ -21,6 +25,9 @@ res.send("entretien agenda");
  });
 
   app.use("/api/auth", authroute);
+  app.use('/api/agendas', Agendasroute);
+  
+
 
 
  
