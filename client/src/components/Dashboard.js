@@ -1,8 +1,8 @@
 import React from "react";
 import { useGlobalContext } from "../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
-import ToDoCard from "./ToDoCard";
-import NewToDo from "./NewToDo";
+import ToDoCard from "./EvenCard";
+import NewToDo from "./NewEvenT";
 
 const Dashboard = () => {
   const { user, completeToDos, incompleteToDos } = useGlobalContext();

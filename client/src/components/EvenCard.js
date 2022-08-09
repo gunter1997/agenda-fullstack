@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useGlobalContext } from "../context/GlobalContext";
 
-const ToDoCard = ({ toDo }) => {
+const EvenCard = ({ toDo }) => {
   const [content, setContent] = React.useState(toDo.content);
   const [editing, setEditing] = React.useState(false);
   const input = React.useRef(null);
@@ -98,4 +98,4 @@ const ToDoCard = ({ toDo }) => {
   );
 };
 
-export default ToDoCard;
+export default EvenCard;

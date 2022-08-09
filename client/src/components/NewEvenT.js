@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useGlobalContext } from "../context/GlobalContext";
 
-const NewToDo = () => {
+const NewEvenT = () => {
   const { addToDo } = useGlobalContext();
   const [content, setContent] = React.useState("");
 
@@ -30,4 +30,4 @@ const NewToDo = () => {
   );
 };
 
-export default NewToDo;
+export default NewEvenT;
