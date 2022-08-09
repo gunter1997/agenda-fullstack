@@ -199,7 +199,7 @@ router.delete("/:toDoId", requiresAuth, async (req, res) => {
       return res.status(404).json({ error: "Could not find ToDo" });
     }
 
-    await AgenDa.findOneAndRemove({
+    await AgenDa .findOneAndRemove({
       user: req.user._id,
       _id: req.params.toDoId,
     });

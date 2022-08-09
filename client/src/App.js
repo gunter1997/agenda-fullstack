@@ -1,12 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+
+import './main.scss';
+import Layout from './components/Layout';
+import { GlobalProvider } from './context/GlobalContext';
+ 
 
 function App() {
-  return (
-    <div className="App">
-      <h1>bonjour le monde</h1>
-    </div>
-  );
-}
+return(
+  <GlobalProvider>
+    <Layout /> 
+  </GlobalProvider> 
+
+)
+
+    
+ 
+
+  
+
+} 
 
 export default App;

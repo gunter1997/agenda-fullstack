@@ -4,7 +4,7 @@ const express = require('express');
 const { Server } = require('https');
 const { default: mongoose} = require('mongoose');
 const cookieParser =require('cookie-parser');
-
+const path = require("path");
 
 
 
@@ -26,16 +26,13 @@ res.send("entretien agenda");
 
   app.use("/api/auth", authroute);
   app.use('/api/agendas', Agendasroute);
+
+  app.use(express.static(path.resolve(__dirname, "./client/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+});
   
-
-
-
- 
-  
-
-
-
- 
   mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {

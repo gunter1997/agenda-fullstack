@@ -11,3 +11,143 @@
    }).catch(() => {
     console.log('echec connect')
    })
+   import React  from "react";
+   import { Link } from "react-router-dom";
+   import axios  from "axios";
+   import { useGlobalContext } from "../context/GlobalContext";
+     
+   
+   const AuthBox = ( {register} ) => {
+   
+       const { getCurrentUser} = useGlobalContext;
+       const [email, setEmail] = React.useState("");
+      const [password, setPassword] = React.useState("");
+       const [name, setName] = React.useState("");
+       const [confirmPassword, setConfirmPassword] = React.useState("");
+        const [loading, setLoading] = React.useState("false");
+        const [errors , setErrors] =React.useState({});  
+       
+   
+       const onSubmit = (e) => {
+   
+           e.preventDefault();
+            setLoading(true);
+            let data = {};
+            if(register) {
+               data = {
+                   name,
+                   email,
+                   password,
+                   confirmPassword,
+               }
+           }else {
+                   data ={
+                   
+                       email,
+                       password,
+                   }
+               }
+               axios.post(register? "/api/auth/register" : "api/auth/login", data).then(() => {
+                   //evennement
+   
+                   getCurrentUser();
+   
+               }).catch(err => {
+                   setLoading(false);
+                   if (err?.response?.data) {
+                       setErrors(err.response.data);
+                   }
+               }) 
+            }
+   
+       return (
+           <div className="auth">
+               <div className="auth__box">
+                   <div className="auth__header">
+                       <h1> {register? "REGISTER" : "LOGIN" }  </h1>
+                   </div>
+                   <form onSubmit={onSubmit}>
+                       {register && (
+   
+                        
+                   <div className="auth__field">
+                       <label>name</label>
+                       <input type={ "text"}
+                       value={name}
+                       onChange = {(e) => setName(e.target.value)}
+                                
+                       />
+                   </div> 
+   
+                      )  }
+                   <div className="auth__field">
+                       <label>email</label>
+                       <input type= "text"
+                              value={email}
+                              onChange = {(e) => setEmail(e.target.value)}
+   
+                       />
+                   </div>
+                   
+                   <div className="auth__field">
+                       <label>password</label>
+                       <input 
+                       type="password"
+                       value={password}
+                              onChange = {(e) => setPassword(e.target.value)}
+                    
+                        />
+                   </div>
+                   { register && (
+                          
+                   <div className="auth__field">
+                   <label>confirmpassword</label>
+                   <input type={ "password"} 
+                   value={confirmPassword}
+                   onChange = {(e) => setConfirmPassword(e.target.value)}
+                
+                   
+                   />
+   
+   
+                   <div className="auth__error">  
+                 {/*  <p className="auth__error"> Somethin went wrong </p>*/}
+                        </div>
+               </div>
+                   )}
+   
+   
+                   <div className="auth__footer">
+                        <div className="auth__error">  
+                           <p className="auth__error"> Somethin went wrong </p>
+                        </div>
+                        <button className="btn" type="submit" disabled={loading} > {register? "REGISTER   ": "LOGIN"} </button>
+                        
+                        {!register ? (
+                           <div className="auth__register">
+                               <p>
+                                   NOT A MENBER? <Link to="/register"> REGISTER NOW </Link>
+                               </p>
+                           </div>
+                           ): (
+                               <div className="auth__register">
+                               <p>
+                                ALREADY A MENBER? <Link to="/"> LOGIN</Link>
+                               </p>
+                           </div>
+                           ) 
+       
+                       }
+                   
+                        
+                        
+                       
+                   </div>
+                   </form>
+               </div>
+           </div>
+   
+       );
+   }
+   
+   export default AuthBox;
